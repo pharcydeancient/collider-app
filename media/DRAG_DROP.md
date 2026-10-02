@@ -1,9 +1,17 @@
-# Drag, drop, paste
+# Drop files. The app reads the bucket.
 
-1. Put clips, photos, and tracks in inbox/.
-2. Run ./batch.sh.
-3. Drag out/live, out/still, out/audio into Supabase bucket media-public. Keep folder names.
-4. Copy the INSERT the script prints. Paste it in the SQL editor. Run it.
+No SQL paste. No CSV.
 
-One time: create public bucket media-public, paste 001_media_assets.sql once.
-Paid tracks are premium=true. Put those files in media-premium, not the public bucket.
+1. Create bucket `media-public` once, public.
+2. Drag `live/<name>/poster.webp` and `live/<name>/720.mp4` into that bucket. Same for `still/` and `audio/`.
+3. The client lists the bucket and builds the catalog.
+
+Optional one command if the service key is in the environment:
+
+```
+export SUPABASE_URL=...
+export SUPABASE_SERVICE_KEY=...
+./upload.sh
+```
+
+`upload.sh` encodes `inbox/` and uploads `out/` to `media-public`. The app still does not need a pasted insert.
